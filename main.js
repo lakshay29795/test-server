@@ -9,12 +9,12 @@ app.use(express.json());
 
 // Set port and verify_token
 const port = process.env.PORT || 3000;
-const verifyToken = process.env.VERIFY_TOKEN;
+const verifyToken = process.env.VERIFY_TOKEN || "lakshay-verify-token";
 
 // Route for GET requests
 app.get('/', (req, res) => {
+  console.log('GET CALL RECIEVED');
   const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query;
-
   if (mode === 'subscribe' && token === verifyToken) {
     console.log('WEBHOOK VERIFIED');
     res.status(200).send(challenge);
